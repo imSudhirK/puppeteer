@@ -1,1 +1,0 @@
-export const BUY_SOFTY = 'BUY_SOFTY';
