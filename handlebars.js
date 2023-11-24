@@ -1,5 +1,5 @@
 const hbs = require("handlebars")
-const { calculate, checkif, addCommas, convertNumberToIndianWords } = require("./utils")
+const { calculate, checkif, addCommas, convertNumberToIndianWords } = require("./utils/utils-one")
 
 hbs.registerHelper('checkif', function (...args) {
     return checkif(...args)
