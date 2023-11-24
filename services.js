@@ -1,7 +1,7 @@
 const path = require("path")
 const fs = require("fs")
 const hbs = require("./handlebars");
-const { convertHtmlToPdf } = require("./utils/utils-two");
+const { convertHtmlToPdfV00, convertHtmlToPdfV01 } = require("./utils/utils-two");
 
 async function invoice(data) {
     const filePath = path.join(__dirname + '/templates/invoice.hbs');
@@ -13,8 +13,8 @@ async function invoice(data) {
 
 async function getInvoicePdf(data) {
     const html = await invoice(data);
-    // const content = decodeURI(encodeURI(html));
-    const pdfBuffer = await convertHtmlToPdf(html);
+    // const pdfBuffer = await convertHtmlToPdf(html);
+    const pdfBuffer = await convertHtmlToPdfV01(html);
     return pdfBuffer;
 }
 

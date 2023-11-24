@@ -1,6 +1,7 @@
 const wkhtmltopdf = require("wkhtmltopdf")
+const pdf = require("html-pdf")
 
-function convertHtmlToPdf(html) {
+function convertHtmlToPdfV00(html) {
     return new Promise((resolve, reject) => {
         const stdout = wkhtmltopdf(html, { pageSize: 'A4' });
         const buff = [];
@@ -10,4 +11,13 @@ function convertHtmlToPdf(html) {
     });
 }
 
-module.exports = { convertHtmlToPdf }
+async function convertHtmlToPdfV01(html, options = {}) {
+    return new Promise((resolve, reject) => {
+        pdf.create(html, options).toBuffer((err, buffer) => {
+            if (err) reject(err);
+            else resolve(buffer);
+        });
+    });
+}
+
+module.exports = { convertHtmlToPdfV00, convertHtmlToPdfV01 }
