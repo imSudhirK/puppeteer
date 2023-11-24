@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Invoice</title>
+    <style>
+        html {
+            height: 0;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <h3 style="text-align:center">{{pdfHead}}</h3>
+    <table>
+        <tr>
+            <td colspan="3" rowspan="3">
+                <div>
+                    <b>{{companyName}}</b>
+                    {{#if companyAddress}}
+                    {{#each companyAddress as |address|}}<br>{{address}}{{/each}}
+                    {{/if}}
+                    {{#if companyGST}}<br>GSTIN/UIN: {{companyGST}}{{/if}}
+                    {{#if companyEmail}}<br>E-Mail : {{companyEmail}}{{/if}}
+                    {{#if companyMobile}}<br>Mobile No. : {{companyMobile}}{{/if}}
+                </div>
+            </td>
+            <td colspan="3">
+                Invoice No.
+                {{#if invoiceNumber}}<br>{{invoiceNumber}}{{/if}}
+            </td>
+            <td>Dated<br>{{date}}</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                Delivery Note
+                {{#if deliveryNotes}}<br>{{deliveryNotes}}{{/if}}
+            </td>
+            <td>Mode/Terms of Payments<br>
+                {{!-- {{#if sendPaymentTerm}}
+                {{#ifeq termsOfPayment 0}} Advance {{/ifeq}}
+                {{#ifnoteq termsOfPayment 0}} {{termsOfPayment}} Day(s) {{/ifnoteq}}
+                {{else}} -
+                {{/if}} --}}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3"> Supplier's Ref. <br>{{reference}} </td>
+            <td>Other Reference(s) <br>{{otherReference}}</td>
+        </tr>
+        <tr>
+            <td colspan="3" rowspan="2">
+                Consignee <br><b>{{consigneeName}}</b>
+                {{#if consigneeStateName}} <br>State: {{consigneeStateName}} {{/if}}
+            </td>
+            <td colspan="3">
+                Buyer's Order No.
+            </td>
+            <td>Delivery Note Date</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                Despatched through
+            </td>
+            <td>Destination</td>
+        </tr>
+        <tr>
+            <td width="1%">S.No.</td>
+            <td colspan="3" width="50%">Description of Goods </td>
+            <td width="20%">Quantity </td>
+            <td>Rate </td>
+            <td width="1%">Amount </td>
+        </tr>
+
+        {{#each listOfItems as |value key|}}
+        <tr>
+            <td width="1%">{{calculate key '+' 1}}</td>
+            <td colspan="3" width="50%">{{this.name}} </td>
+            <td width="20%">{{#checkif this.quantity '==' 2}} 123 {{/checkif}}</td>
+            <td>{{addComma this.rate}} </td>
+            <td width="1%">{{addComma this.amount}}</td>
+        </tr>
+        {{/each}}
+        <tr>
+            <td></td>
+            <td colspan="3" width="50%" style="text-align: right;"><b>Total</b></td>
+            <td></td>
+            <td></td>
+            <td><b>{{addComma totalAmount}}</b></td>
+        </tr>
+
+
+        <tr>
+            <td colspan="7">
+                Amount Chargable(in words)
+                <br>{{convertNumberToIndianWords totalAmount}}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                We declare that this invoice shows the actual price of goods described and that all
+                particulars are true and correct. <br>Terms: <br>1. Goods once sold shall not be taken back.
+                <br>2.Our responsibility Ceases as the goods leaves our godown.<br> 3. If Payment not
+                received in stipulated time interest @18% shall be charged.<br> 4.Cheques dishonoured may
+                attract a penalty plus GST. <br>5.All disputes shall be settled by Delhi Jurisdiction only.
+            </td>
+            <td colspan="2">
+                Authorised Signatory
+                <br><b>{{companyName}}</b>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

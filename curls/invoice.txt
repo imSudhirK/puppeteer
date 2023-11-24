@@ -1,0 +1,37 @@
+curl --location 'http://localhost:4001/puppeteer/invoice' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "pdfHead": "Bill of Supply",
+    "companyName": "Boot Company 3",
+    "companyAddress": [
+        "Noida"
+    ],
+    "companyGST": "07AAGFF2194N1Z1",
+    "companyEmail": "fake.company@email",
+    "companyMobile": 9199999999,
+    "invoiceNumber": 8,
+    "date": "01-09-2023",
+    "sendPaymentTerm": true,
+    "termsOfPayment": 0,
+    "listOfItems": [
+        {
+            "name": "item one ",
+            "quantity": 3,
+            "rate": 3545,
+            "amount": 6
+        },
+        {
+            "name": "item two ",
+            "quantity": 1,
+            "rate": 3345,
+            "amount": 233254
+        },
+        {
+            "name": "item one ",
+            "quantity": 2,
+            "rate": 35345,
+            "amount": 3543536
+        }
+    ],
+    "totalAmount": 3945490.35
+}'
